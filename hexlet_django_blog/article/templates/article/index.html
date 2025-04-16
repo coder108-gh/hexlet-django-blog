@@ -7,6 +7,12 @@
 <body>
 <p>шаблон из раздела статьи</p>
     <p>{{request.resolver_match.app_name}}</p>
+    {% if tags %}
+    <p> {{tags}} </p>
+    <p> {{article_id}} </p>
+    {% else %}
+    <p>no tags and id</p>
+    {% endif %}
 </body>
 </html>
 
