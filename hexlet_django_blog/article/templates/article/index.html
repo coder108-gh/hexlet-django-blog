@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<p>шаблон из раздела статьи</p>
+{% extends "base.html" %}
+{% block content %}
     <p>{{request.resolver_match.app_name}}</p>
-    {% if tags %}
-    <p> {{tags}} </p>
-    <p> {{article_id}} </p>
-    {% else %}
-    <p>no tags and id</p>
-    {% endif %}
-</body>
-</html>
+    <p>шаблон из раздела статьи</p>
+    <h1>Список статей</h1>
+    {% for article in articles %}
+        <h2><a href="{{article.id}}">{{ article.name }}</a></h2>
+        <div>{{ article.body|slice:":200" }}</div>
+    {% endfor %}
+{% endblock %}
+
+
+
 
