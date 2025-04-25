@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
     <p>{{request.resolver_match.app_name}}</p>
     <p>шаблон из раздела статьи</p>
     <a href="{% url 'art:cr_art'%}">Create new...</a>

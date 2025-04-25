@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import TemplateView
 from django.views import View
 from .forms import ArticleForm
-
+from django.contrib import messages
 from hexlet_django_blog.article.models import Article
 
 class ArticleView(TemplateView):
@@ -40,9 +40,10 @@ class ArticleFormCreateView(View):
         form = ArticleForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'SUCCESS!!!')
             return redirect('art:article_list')
+        messages.error(request, 'ERROR!')
         return render(request, 'article/create.html', {'form': form})
-
 # def index(request):
 #     # return HttpResponse('article')
 #     return render(request, 'article/index.html')
