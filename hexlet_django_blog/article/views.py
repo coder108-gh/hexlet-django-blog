@@ -1,7 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import TemplateView
 from django.views import View
+from .forms import ArticleForm
 
 from hexlet_django_blog.article.models import Article
 
@@ -28,6 +29,19 @@ class IndexView(View):
             "article/index.html",
             context={'articles': articles}
         )
+
+
+class ArticleFormCreateView(View):
+    def get(self, request, *args, **kwargs):
+        form = ArticleForm()
+        return render(request, 'article/create.html', {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('art:article_list')
+        return render(request, 'article/create.html', {'form': form})
 
 # def index(request):
 #     # return HttpResponse('article')

@@ -2,6 +2,7 @@
 {% block content %}
     <p>{{request.resolver_match.app_name}}</p>
     <p>шаблон из раздела статьи</p>
+    <a href="{% url 'art:cr_art'%}">Create new...</a>
     <h1>Список статей</h1>
     {% for article in articles %}
         <h2><a href="{{article.id}}">{{ article.name }}</a></h2>

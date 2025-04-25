@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 from django.urls import reverse
+from django.views import View
+
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -11,7 +13,6 @@ class IndexView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         return redirect(reverse('art:art1',kwargs={'tags': 'go', 'article_id': 777}))
-
 
 # def index(request):
 #     return render(
