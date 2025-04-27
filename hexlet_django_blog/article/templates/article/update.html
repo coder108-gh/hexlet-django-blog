@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Edit article</h1>
+{% if form.errors %}
+    <div>
+        <ul>
+        {% for error in form.errors %}
+            <li><strong>{{ error|escape }}</strong></li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+<form action="{% url 'art:edit_article' article_id=article_id %}" method="post">
+    {% csrf_token %}
+    <table border="1">
+    {{ form }}
+    </table>
+    <input type="submit" value="Сохранить">
+</form>
+{% endblock %}
+
+

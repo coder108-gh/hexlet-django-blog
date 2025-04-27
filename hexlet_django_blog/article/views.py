@@ -44,6 +44,31 @@ class ArticleFormCreateView(View):
             return redirect('art:article_list')
         messages.error(request, 'ERROR!')
         return render(request, 'article/create.html', {'form': form})
-# def index(request):
-#     # return HttpResponse('article')
-#     return render(request, 'article/index.html')
+
+class ArticleFormEditView(View):
+    def get(self, request, *args, **kwargs):
+        art_id = kwargs.get('article_id')
+        article = Article.objects.get(id=art_id)
+        form = ArticleForm(instance=article)
+        return render(request,'article/update.html',{'form': form, 'article_id': art_id})
+
+    def post(self, request, *args, **kwargs):
+        art_id = kwargs.get('article_id')
+        article = Article.objects.get(id=art_id)
+        form = ArticleForm(request.POST,  instance=article)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'UPDATED')
+            return redirect('art:article_list')
+
+        messages.error(request, 'ERROR!')
+        return render(request, 'article/update.html',{'form': form, 'article_id': art_id})
+
+class ArticleFormDeleteView(View):
+    def post(self, request, *args, **kwargs):
+        art_id = kwargs.get('article_id')
+        article = Article.objects.get(id=art_id)
+        if article:
+            article.delete()
+            messages.success(request, 'deleted!')
+        return redirect('art:article_list')
